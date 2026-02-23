@@ -280,6 +280,7 @@ def simulate_match_wtt_with_stats(
     rosters_df,
     team_a,
     team_b,
+    seed=None,
     target_games=5,
     fatigue_a=None,
     fatigue_b=None,
@@ -297,6 +298,8 @@ def simulate_match_wtt_with_stats(
       OT Loss = 1 pt
     Record displayed as W-L-OTL.
     """
+    if seed is not None:
+        random.seed(int(seed))
 
     if fatigue_a is None: fatigue_a = {}
     if fatigue_b is None: fatigue_b = {}
@@ -692,7 +695,6 @@ class SeasonRunner:
 
         self.team_stats = init_team_stats(self.teams)
         self.player_stats = init_player_stats()
-        self.results = []
 
         self.fatigue_by_team = {t: {} for t in self.teams}
         self.stop_used_by_team = {t: defaultdict(int) for t in self.teams}
@@ -755,7 +757,6 @@ class SeasonRunner:
             "team_stats": self.team_stats,
             "player_stats": self.player_stats,
         }
-        self.results.append(wrapped)
 
         self.cursor += 1
         self.last_stop = stop
