@@ -280,6 +280,7 @@ def simulate_match_wtt_with_stats(
     rosters_df,
     team_a,
     team_b,
+    seed=None,
     target_games=5,
     fatigue_a=None,
     fatigue_b=None,
@@ -297,6 +298,8 @@ def simulate_match_wtt_with_stats(
       OT Loss = 1 pt
     Record displayed as W-L-OTL.
     """
+    if seed is not None:
+        random.seed(int(seed))
 
     if fatigue_a is None: fatigue_a = {}
     if fatigue_b is None: fatigue_b = {}
